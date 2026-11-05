@@ -17,3 +17,4 @@
     <ProjectReference Include="..\..\src\UmkmJatim.API\UmkmJatim.API.csproj" />
   </ItemGroup>
 </Project>
+

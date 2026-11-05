@@ -18,3 +18,4 @@
     <ProjectReference Include="..\UmkmJatim.Application\UmkmJatim.Application.csproj" />
   </ItemGroup>
 </Project>
+

@@ -28,3 +28,4 @@ Kami mengimplementasikan tiga pilar keamanan dan reliabilitas pada webhook Midtr
   - Riwayat notifikasi mentah tersimpan lengkap di tabel `PaymentLogs` untuk kebutuhan audit trail keuangan.
 - **Kekurangan**:
   - Diperlukan satu query ekstra ke tabel `PaymentLogs` pada setiap incoming webhook (namun lookup berbasis index unik sangat cepat, < 1ms).
+

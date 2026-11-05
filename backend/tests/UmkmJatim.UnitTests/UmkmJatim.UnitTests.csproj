@@ -18,3 +18,4 @@
     <ProjectReference Include="..\..\src\UmkmJatim.Domain\UmkmJatim.Domain.csproj" />
   </ItemGroup>
 </Project>
+

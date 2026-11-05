@@ -29,3 +29,4 @@ Kami memilih **Optimistic Concurrency Control** menggunakan kolom `RowVersion` (
 
 ## Kesimpulan
 Pendekatan Optimistic Concurrency memberikan throughput baca dan tulis yang optimal untuk arsitektur e-commerce modern, menjaga integritas data tanpa mengorbankan performa database secara keseluruhan.
+

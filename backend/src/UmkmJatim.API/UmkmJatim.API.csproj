@@ -20,3 +20,4 @@
     <ProjectReference Include="..\UmkmJatim.Infrastructure\UmkmJatim.Infrastructure.csproj" />
   </ItemGroup>
 </Project>
+

@@ -25,3 +25,4 @@ Kami mengimplementasikan strategi token ganda:
 - **Kekurangan**:
   - Perlu penanganan konfigurasi CORS yang ketat (`AllowCredentials()` dan origin terdaftar eksplisit).
   - Butuh alur rotasi refresh token untuk mendeteksi token reuse attack.
+

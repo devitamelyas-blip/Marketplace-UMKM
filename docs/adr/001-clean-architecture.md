@@ -18,3 +18,4 @@ Kami memilih mengadopsi **Clean Architecture** yang dipadukan dengan **CQRS sede
 - **Kekurangan**:
   - Terdapat lebih banyak berkas dan proyek (.csproj) dibandingkan struktur monolitik tradisional (misal: folder Models, Views, Controllers standar).
   - Sedikit overhead alokasi memory dari MediatR mediator pipeline (namun terbukti sangat minim pada .NET 8).
+
