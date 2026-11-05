@@ -1,0 +1,74 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: umkm_db
+    environment:
+      SA_PASSWORD: "${DB_PASSWORD}"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports:
+      - "${DB_PORT:-1433}:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"${DB_PASSWORD}\" -Q \"SELECT 1\" -C || exit 1"]
+      interval: 10s
+      retries: 10
+      start_period: 30s
+      timeout: 5s
+    networks:
+      - umkm_network
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: umkm_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Server=db,1433;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};TrustServerCertificate=True;
+      - JwtSettings__Secret=${JWT_SECRET}
+      - JwtSettings__Issuer=${JWT_ISSUER}
+      - JwtSettings__Audience=${JWT_AUDIENCE}
+      - JwtSettings__AccessTokenExpiresMinutes=${JWT_ACCESS_TOKEN_EXPIRES_MINUTES:-15}
+      - JwtSettings__RefreshTokenExpiresDays=${JWT_REFRESH_TOKEN_EXPIRES_DAYS:-7}
+      - MidtransSettings__ServerKey=${MIDTRANS_SERVER_KEY}
+      - MidtransSettings__ClientKey=${MIDTRANS_CLIENT_KEY}
+      - MidtransSettings__IsProduction=${MIDTRANS_IS_PRODUCTION:-false}
+      - FileStorageSettings__UploadPath=/app/uploads
+      - CorsSettings__AllowedOrigins=${CORS_ALLOWED_ORIGINS}
+    ports:
+      - "5000:8080"
+    volumes:
+      - api_uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - umkm_network
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://localhost:5000/api}
+        - VITE_MIDTRANS_CLIENT_KEY=${VITE_MIDTRANS_CLIENT_KEY}
+        - VITE_MIDTRANS_SNAP_URL=${VITE_MIDTRANS_SNAP_URL}
+    container_name: umkm_web
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    networks:
+      - umkm_network
+
+volumes:
+  sqlserver_data:
+  api_uploads:
+
+networks:
+  umkm_network:
+    driver: bridge
+

@@ -1,0 +1,62 @@
+## ===========================
+## .NET
+## ===========================
+*.user
+*.suo
+.vs/
+bin/
+obj/
+*.nupkg
+*.snupkg
+*.log
+TestResults/
+coverage/
+*.opencover.xml
+BenchmarkDotNet.Artifacts/
+
+## ===========================
+## Node / Vue / Frontend
+## ===========================
+node_modules/
+dist/
+.vite/
+*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+frontend/.turbo
+
+## ===========================
+## Environment & Secrets
+## ===========================
+.env
+!.env.example
+*.pfx
+*.p12
+*.key
+secrets/
+
+## ===========================
+## Docker
+## ===========================
+docker-compose.override.yml
+!docker-compose.override.yml.example
+
+## ===========================
+## Uploads (local dev only)
+## ===========================
+backend/uploads/
+
+## ===========================
+## IDEs & OS
+## ===========================
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
